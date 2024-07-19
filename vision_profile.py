@@ -17,6 +17,7 @@ class Profile:
 class FaceDatabase:
     def __init__(self, file_path):
         self.file_path = file_path
+        self.data = {}
 
     def create_profile(self, name):
         if name not in self.data:
