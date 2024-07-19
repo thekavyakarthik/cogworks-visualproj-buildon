@@ -18,23 +18,7 @@ def extract_descriptors(img, boxes, model):
     descriptors = model.compute_descriptors(img, boxes)
     return descriptors
 
-def cosine_distance(descriptors, labels):
-    """
-    Determine cosine distance for each descriptor and its label
-    Append to a list for whether it matches or does not match
-    """
-    distances = find_cos_dist(descriptors)
-    matches = []
-    non_matches = []
-    
-    for i in range(len(labels)):
-        for j in range(i+1, len(labels)):
-            if labels[i] == labels[j]:
-                matches.append(distances[i, j])
-            else:
-                non_matches.append(distances[i, j])
-                
-    return matches, non_matches
+
 
 
 def plot_histograms(true_probs, false_probs, match_distances, non_match_distances):
