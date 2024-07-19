@@ -11,12 +11,15 @@ def descriptorMatch(database, descriptor: np.ndarray, threshold: float) -> str:
     possiblePeople = []
     #finding cosine distances
 
-    # {"key": "values", "key1":"value1"}
-    for i, d in enumerate(database.data.values()):
-        print(d)
-        dist = find_cos_dist(descriptor, np.mean(d, axis=0))
+    for i in range(len(list(database.data.keys()))):
+        dist = find_cos_dist(descriptor, np.mean(list(database.data.values())[i].descriptors, axis=0))
         possiblePeople.append(list(database.data.keys())[i])
         vectorDist.append(dist)
+    # {"key": "values", "key1":"value1"}
+    """for i, d in enumerate(list(database.data.values()[0]).descriptors):
+        dist = find_cos_dist(descriptor, np.mean(d, axis=0))
+        possiblePeople.append(list(database.data.keys())[0])
+        vectorDist.append(dist)"""
     #position of least possible cosine distance
     pos = np.argmin(vectorDist)
     if vectorDist[pos] < threshold:
