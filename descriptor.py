@@ -37,3 +37,4 @@ def displayFinalPicture(array_pic, name):
         # draw the box on the screen
         ax.add_patch(Rectangle(box[:2], *(box[2:] - box[:2]), fill=None, lw=2, color="red"))
         plt.text(box[:2][0], box[:2][1], name, color="red")
+    plt.show()
