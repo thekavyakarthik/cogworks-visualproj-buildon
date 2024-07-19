@@ -1,12 +1,9 @@
-%matplotlib notebook
 import matplotlib.pyplot as plt
 from camera import take_picture
-import numpy as np
 from facenet_models import FacenetModel
+from cosdistance import find_cos_dist
 
-model = FacenetModel()
-
-def detect_face_prob(img):
+def detect_face_prob(img, model):
     """
     Function to return features from image, probability of a face
     Take in generic image and return tuple of information from image
@@ -14,19 +11,19 @@ def detect_face_prob(img):
     boxes, probabilities, landmarks = model.detect(img)
     return boxes, probabilities, landmarks
 
-def extract_descriptors(img, boxes):
+def extract_descriptors(img, boxes, model):
     """
     Function extracting all descriptors from a given image and the boxes drawn on the image
     """
     descriptors = model.compute_descriptors(img, boxes)
     return descriptors
 
-def cosine_distane(descriptors, labels):
+def cosine_distance(descriptors, labels):
     """
     Determine cosine distance for each descriptor and its label
     Append to a list for whether it matches or does not match
     """
-    distances = find_cost_dist(descriptors)
+    distances = find_cos_dist(descriptors)
     matches = []
     non_matches = []
     
@@ -65,17 +62,15 @@ def plot_histograms(true_probs, false_probs, match_distances, non_match_distance
     plt.tight_layout()
     plt.show()
 
+def is_true_positive(prob, threshold):
+    """
+    Determine if the detection probability is a true positive.
 
-images = []
-labels = []
+    Parameters:
+    - prob: The detection probability
+    - threshold: The probability threshold for a true positive
 
-detections = [detect_faces_and_probabilities(img) for img in images]
-descriptors = [extract_face_descriptors(img, boxes) for img, (boxes, _, _) in zip(images, detections)]
-descriptors = np.concatenate(descriptors, axis=0)
-labels = np.concatenate([[label] * len(boxes) for label, (boxes, _, _) in zip(labels, detections)], axis=0)
-
-match_distances, non_match_distances = cosine_distances(descriptors, labels)
-true_positives = [prob for _, probs in detections for prob in probs if is_true_positive(prob, labels)]
-false_negatives = [prob for _, probs in detections for prob in probs if not is_true_positive(prob, labels)]
-
-plot_histograms(true_positives, false_negatives, match_distances, non_match_distances)
+    Returns:
+    - True if the detection is a true positive, False otherwise
+    """
+    return prob >= threshold
