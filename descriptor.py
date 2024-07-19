@@ -22,6 +22,7 @@ def descriptorMatch(database, descriptor: np.ndarray, threshold: float) -> str:
         vectorDist.append(dist)"""
     #position of least possible cosine distance
     pos = np.argmin(vectorDist)
+    #print(pos)
     if vectorDist[pos] < threshold:
         #database.add() from Profile class
         return possiblePeople[pos] #to be used in the final output graph with name
