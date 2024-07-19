@@ -42,6 +42,6 @@ class FaceDatabase:
         with open(self.file_path, 'wb') as f:
             pickle.dump(self.data, f)
 
-    def load(self):
-        with open(self.file_path, 'rb') as f:
+    def load(self, file_path):
+        with open(file_path, 'rb') as f:
             self.data = pickle.load(f)
