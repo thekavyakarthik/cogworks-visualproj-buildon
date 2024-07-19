@@ -19,7 +19,8 @@ def cosine_distance(descriptor1, descriptor2, labels):
     Determine cosine distance for each descriptor and its label
     Append to a list for whether it matches or does not match
     """
-    distances = find_cos_dist(descriptor1, descriptor2)
+    
+    distances = find_cos_dist(list(db.data.values())[0].descriptors, list(db.data.values())[1].descriptors )
     matches = []
     non_matches = []
     
