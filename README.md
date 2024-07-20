@@ -1,1 +1,1 @@
-# cogworks-visualproj
+# Cogworks - Image CLassification Project
