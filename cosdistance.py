@@ -8,7 +8,7 @@ def find_cos_dist(m: np.ndarray, n: np.ndarray):
 
     """
     m_norm = m / np.linalg.norm(m, axis=1, keepdims=True) # m / | m |
-    n_norm = n / np.linalg.norm(n, axis =1, keepdims=True) # n / | n |
+    n_norm = n / np.linalg.norm(n, axis=1, keepdims=True) # n / | n |
 
     dot_mn = np.dot(m_norm, n_norm.T) # gives shape (m, n)
 
